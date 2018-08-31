@@ -9,19 +9,17 @@
 import UIKit
 import CoreData
 
-class ItemListTableViewController: UITableViewController {
-    
-    //MARK: - Outlets
-    
-  
-    
-    //MARK: - Properties
-
+class ItemListTableViewController: UITableViewController,NSFetchedResultsControllerDelegate, ItemTableViewDelegate {
     
     //MARK: - LifeCycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        fetchedResultController.delegate = self
+        do{
+            try fetchedResultController.performFetch()
+        } catch {
+            print("There was an error on \(#function): \(error) \(error.localizedDescription)")
+        }
     }
     
     //MARK: - Fetched Result Controller
@@ -29,71 +27,68 @@ class ItemListTableViewController: UITableViewController {
         let fetchRequest : NSFetchRequest<Item> = Item.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "produceName", ascending: true)]
         return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
-        
     }()
     
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .delete:
+            guard let indexPath = indexPath else {return}
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        case.insert:
+            guard let indexPath = newIndexPath else {return}
+            tableView.insertRows(at: [indexPath], with: .automatic)
+        case .move:
+            guard let indexPath = indexPath,
+                let newIndexPath = newIndexPath else {return}
+            tableView.moveRow(at: indexPath, to: newIndexPath)
+        case .update:
+            guard let indexPath = indexPath else {return}
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            
+        }
+    }
     
+    //MARK: - Methods
+    func completeButtonTapped(cell: ItemTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else {return}
+        guard let item = fetchedResultController.fetchedObjects?[indexPath.row] else {return}
+        item.isCompleted = !item.isCompleted
+        CoreDataStack.saveToPersistentStore()
+    }
     
-    
-    
-    
-    
-
-
-
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return fetchedResultController.fetchedObjects?.count ?? 0
     }
-
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ItemTableViewCell
+        let produceItem = fetchedResultController.fetchedObjects?[indexPath.row]
+        cell?.produceItem = produceItem
+        cell?.delegate = self
+        return cell ?? UITableViewCell()
     }
-  */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            guard let item = fetchedResultController.fetchedObjects?[indexPath.row] else {return}
+            CoreDataStack.delete(item: item)
+        }
     }
-    */
-
-
-
-
-    
     
     //MARK: - Actions
-    
     @IBAction func addButtonTapped(_ sender: Any) {
-
         let alertController = UIAlertController(title: "Add Item", message: "Please add an item to your list.", preferredStyle: .alert)
         alertController.addTextField { (produceNameTextField) in
             produceNameTextField.placeholder = "Produce Name"
         }
-        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let saveAction = UIAlertAction(title: "Add", style: .default) { (_) in
             guard let produceTextField = alertController.textFields?[0].text else {return}
+            guard produceTextField != "" else {return}
             Item(produceName: produceTextField)
             CoreDataStack.saveToPersistentStore()
             self.tableView.reloadData()
@@ -101,11 +96,6 @@ class ItemListTableViewController: UITableViewController {
         alertController.addAction(cancelAction)
         alertController.addAction(saveAction)
         present(alertController, animated: true)
+        
     }
-    
-    
-    
-    
-    
-
 }

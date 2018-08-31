@@ -55,6 +55,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="checkBoxButton" destination="4Xa-N6-l8t" id="rcd-vf-IDC"/>
                                     <outlet property="produceNameLabel" destination="fcY-et-suF" id="ztG-99-3BS"/>
                                 </connections>
                             </tableViewCell>

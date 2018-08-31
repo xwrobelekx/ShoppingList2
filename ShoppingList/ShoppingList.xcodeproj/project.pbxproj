@@ -62,9 +62,9 @@
 		3B3EC6F2213993160086C4E5 /* ShoppingList */ = {
 			isa = PBXGroup;
 			children = (
-				3B3EC7082139949B0086C4E5 /* ViewControllers */,
 				3B3EC707213994940086C4E5 /* Models */,
 				3B3EC7062139948E0086C4E5 /* Views */,
+				3B3EC7082139949B0086C4E5 /* ViewControllers */,
 				3B3EC705213993260086C4E5 /* Resources */,
 			);
 			path = ShoppingList;

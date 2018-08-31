@@ -15,10 +15,7 @@ extension Item {
     @discardableResult
     convenience init(produceName: String, isCompleted: Bool = false, context: NSManagedObjectContext = CoreDataStack.context){
         self.init(context: context)
-        
         self.produceName = produceName
         self.isCompleted = isCompleted
     }
-    
-    
 }
