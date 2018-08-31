@@ -14,7 +14,7 @@ enum CoreDataStack {
     static let container: NSPersistentContainer = {
         let appName = Bundle.main.object(forInfoDictionaryKey: (kCFBundleNameKey as String)) as! String
         let container = NSPersistentContainer(name: appName)
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }

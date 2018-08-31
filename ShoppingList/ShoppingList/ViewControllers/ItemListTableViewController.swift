@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ItemListTableViewController: UITableViewController {
     
@@ -24,6 +25,13 @@ class ItemListTableViewController: UITableViewController {
     }
     
     //MARK: - Fetched Result Controller
+    let fetchedResultController : NSFetchedResultsController<Item> = {
+        let fetchRequest : NSFetchRequest<Item> = Item.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "produceName", ascending: true)]
+        return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
+        
+    }()
+    
     
     
     
@@ -36,7 +44,7 @@ class ItemListTableViewController: UITableViewController {
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return fetchedResultController.fetchedObjects?.count ?? 0
     }
 
     /*
@@ -47,7 +55,7 @@ class ItemListTableViewController: UITableViewController {
 
         return cell
     }
-    */
+  */
 
     /*
     // Override to support conditional editing of the table view.
@@ -77,9 +85,22 @@ class ItemListTableViewController: UITableViewController {
     //MARK: - Actions
     
     @IBAction func addButtonTapped(_ sender: Any) {
+
+        let alertController = UIAlertController(title: "Add Item", message: "Please add an item to your list.", preferredStyle: .alert)
+        alertController.addTextField { (produceNameTextField) in
+            produceNameTextField.placeholder = "Produce Name"
+        }
         
-        // we want a alert contrloller with text field to pop up
-        //and 2 actions cancel and save
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let saveAction = UIAlertAction(title: "Add", style: .default) { (_) in
+            guard let produceTextField = alertController.textFields?[0].text else {return}
+            Item(produceName: produceTextField)
+            CoreDataStack.saveToPersistentStore()
+            self.tableView.reloadData()
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(saveAction)
+        present(alertController, animated: true)
     }
     
     
