@@ -13,10 +13,11 @@ import CoreData
 extension Item {
     
     @discardableResult
-    convenience init(produceName: String, context: NSManagedObjectContext = CoreDataStack.context){
+    convenience init(produceName: String, isCompleted: Bool = false, context: NSManagedObjectContext = CoreDataStack.context){
         self.init(context: context)
         
         self.produceName = produceName
+        self.isCompleted = isCompleted
     }
     
     

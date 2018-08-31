@@ -11,9 +11,7 @@ import CoreData
 
 
 enum CoreDataStack {
-    
     static let container: NSPersistentContainer = {
-        
         let appName = Bundle.main.object(forInfoDictionaryKey: (kCFBundleNameKey as String)) as! String
         let container = NSPersistentContainer(name: appName)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -26,9 +24,16 @@ enum CoreDataStack {
     
     static var context: NSManagedObjectContext { return container.viewContext }
     
+    static func saveToPersistentStore() {
+        do{
+            try CoreDataStack.context.save()
+        }catch {
+            print("There was an error on \(#function): \(error) \(error.localizedDescription)")
+        }
+    }
     
-    //save
-    
-    
-    //delete
+    static func delete(item: Item){
+        CoreDataStack.context.delete(item)
+        saveToPersistentStore()
+    }
 }

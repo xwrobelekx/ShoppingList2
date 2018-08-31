@@ -15,6 +15,7 @@
 		3B3EC70D2139958A0086C4E5 /* ShoppingList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EC70B2139958A0086C4E5 /* ShoppingList.xcdatamodeld */; };
 		3B3EC70F213995FC0086C4E5 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EC70E213995FC0086C4E5 /* CoreDataStack.swift */; };
 		3B3EC7112139965B0086C4E5 /* Item+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EC7102139965B0086C4E5 /* Item+Convenience.swift */; };
+		3B3EC71321399C080086C4E5 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3EC71221399C080086C4E5 /* ItemTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		3B3EC70C2139958A0086C4E5 /* ShoppingList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShoppingList.xcdatamodel; sourceTree = "<group>"; };
 		3B3EC70E213995FC0086C4E5 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		3B3EC7102139965B0086C4E5 /* Item+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+Convenience.swift"; sourceTree = "<group>"; };
+		3B3EC71221399C080086C4E5 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 		3B3EC7062139948E0086C4E5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3B3EC71221399C080086C4E5 /* ItemTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				3B3EC7112139965B0086C4E5 /* Item+Convenience.swift in Sources */,
 				3B3EC70A2139954F0086C4E5 /* ItemListTableViewController.swift in Sources */,
 				3B3EC6F4213993160086C4E5 /* AppDelegate.swift in Sources */,
+				3B3EC71321399C080086C4E5 /* ItemTableViewCell.swift in Sources */,
 				3B3EC70F213995FC0086C4E5 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

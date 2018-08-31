@@ -9,21 +9,31 @@
 import UIKit
 
 class ItemListTableViewController: UITableViewController {
+    
+    //MARK: - Outlets
+    
+  
+    
+    //MARK: - Properties
 
+    
+    //MARK: - LifeCycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
+    
+    //MARK: - Fetched Result Controller
+    
+    
+    
+    
+    
+    
 
 
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 0
@@ -59,29 +69,22 @@ class ItemListTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 
+
+
+    
+    
+    //MARK: - Actions
+    
+    @IBAction func addButtonTapped(_ sender: Any) {
+        
+        // we want a alert contrloller with text field to pop up
+        //and 2 actions cancel and save
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
+    
+    
+    
+    
 
 }
